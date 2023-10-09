@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
             LearnTogetherGDevTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    PageMain()
+                    ComposeArticelApp()
                 }
             }
         }
@@ -37,27 +38,39 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PageMain() {
-    Column {
-        Image(painter = painterResource(R.drawable.bg_compose_background), contentDescription = null)
+fun ComposeArticelApp() {
+    ArticelCard(
+        title = stringResource(R.string.jetpack_compose_tutorial),
+        shortDescription = stringResource(R.string.text_kedua),
+        longDescription = stringResource(R.string.text_ketiga),
+        imagePainter = painterResource(R.drawable.bg_compose_background)
+    )
+}
+@Composable
+fun ArticelCard(
+    title: String,
+    shortDescription: String,
+    longDescription: String,
+    imagePainter: Painter,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
+        Image(painter = imagePainter, contentDescription = null)
         Text(
-            text = stringResource(R.string.jetpack_compose_tutorial),
+            text = title,
             fontSize = 24.sp,
             modifier = Modifier.padding(16.dp)
         )
         Text(
-            text = stringResource(R.string.text_kedua),
+            text = shortDescription,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-            style = TextStyle(
-                textAlign = TextAlign.Justify
-            )
+            textAlign = TextAlign.Justify
         )
         Text(
-            text = stringResource(R.string.text_ketiga),
+            text = longDescription,
             modifier = Modifier.padding(16.dp),
-            style = TextStyle(
-                textAlign = TextAlign.Justify
-            )
+            textAlign = TextAlign.Justify
+
         )
     }
 }
@@ -68,6 +81,6 @@ fun PageMain() {
 @Composable
 fun GreetingPreview() {
     LearnTogetherGDevTheme {
-        PageMain()
+        ComposeArticelApp()
     }
 }
